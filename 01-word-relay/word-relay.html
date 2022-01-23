@@ -17,8 +17,17 @@
       alert(`${number}명이 참여하는 군요!`);
       const yesOrNo = confirm("맞나요?");
 
-      const $span = document.querySelector("div span");
-      console.log($span);
+      const onInput = (event) => {
+        console.log(`글자 입력: ${event.target.value}`);
+      };
+
+      const onClickButton = () => {
+        console.log("버튼 클릭");
+      };
+
+      document.querySelector("input").addEventListener("input", onInput);
+
+      document.querySelector("button").addEventListener("click", onClickButton);
     </script>
   </body>
 </html>
