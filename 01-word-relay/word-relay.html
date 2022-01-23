@@ -23,44 +23,25 @@
       let newWord; // 현재 작성한 단어
 
       const onClickButton = () => {
-        if (!word) {
-          // 제시어가 비어있는가?
-          // 비어 있다.
+        if (!word || word[word.length - 1] === newWord[0]) {
+          // 제시어가 비어있거나 올바르다.
           word = newWord; // 입력한 단어가 제시어가 된다.
-          $word.textContent = word;
+          $word.textContent = word; // 제시어를 화면에 표시한다.
 
           const order = Number($order.textContent); // 현재 순서
           if (order + 1 > number) {
-            $order.textContent = 1;
+            // 현재 순서에 +1을 하면 참여자 수보다 많아진다
+            $order.textContent = 1; // 순서를 첫번째로 한다.
           } else {
-            $order.textContent = order + 1;
+            $order.textContent = order + 1; // 현재 순서에 +1을 한다
           }
-
-          $input.value = "";
-          $input.focus();
         } else {
-          // 비어 있지 않다.
-          if (word[word.length - 1] === newWord[0]) {
-            // 올바른 단어이다
-            word = newWord; // 입력한 단어가 제시어가 된다.
-            $word.textContent = word;
-
-            $input.value = "";
-            $input.focus();
-
-            const order = Number($order.textContent); // 현재 순서
-            if (order + 1 > number) {
-              $order.textContent = 1;
-            } else {
-              $order.textContent = order + 1;
-            }
-          } else {
-            // 올바르지 않은 단어이다
-            alert("올바르지 않은 단어입니다!");
-            $input.value = "";
-            $input.focus();
-          }
+          // 올바르지 않은 단어이다
+          alert("올바르지 않은 단어입니다!");
         }
+
+        $input.value = "";
+        $input.focus();
       };
 
       const onInput = (event) => {
