@@ -44,21 +44,18 @@
       const $result = document.querySelector("#result");
 
       const onClickNumber = (event) => {
-        if (operator) {
-          numTwo += event.target.textContent;
-        } else {
+        if (!operator) {
           numOne += event.target.textContent;
+          $result.value += event.target.textContent;
+          return;
         }
-        $result.value += event.target.textContent;
-      };
 
-      const onClickOperator = (op) => () => {
-        if (numOne) {
-          operator = op;
-          $operator.value = op;
-        } else {
-          alert("숫자를 먼저 입력하세요");
+        if (!numTwo) {
+          $result.value = "";
         }
+
+        numTwo += event.target.textContent;
+        $result.value += event.target.textContent;
       };
 
       document.querySelector("#num-0").addEventListener("click", onClickNumber);
@@ -71,6 +68,16 @@
       document.querySelector("#num-7").addEventListener("click", onClickNumber);
       document.querySelector("#num-8").addEventListener("click", onClickNumber);
       document.querySelector("#num-9").addEventListener("click", onClickNumber);
+
+      const onClickOperator = (op) => () => {
+        if (numOne) {
+          operator = op;
+          $operator.value = op;
+        } else {
+          alert("숫자를 먼저 입력하세요");
+        }
+      };
+
       document
         .querySelector("#plus")
         .addEventListener("click", onClickOperator("+"));
