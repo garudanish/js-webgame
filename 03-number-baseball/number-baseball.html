@@ -29,8 +29,36 @@
         answer.push(numbers[index]);
         numbers.splice(index, 1);
       }
-
       console.log(answer);
+
+      const tries = [];
+      function checkInput(input) {
+        // 검사하는 코드
+        if (input.length !== 4) {
+          return alert("4자리 숫자를 입력해주세요");
+        }
+
+        if (new Set(input).size !== 4) {
+          // 중복된 숫자가 있는가
+          return alert("숫자가 중복되지 않게 입력해주세요.");
+        }
+
+        if (tries.includes(input)) {
+          // 이미 시도한 값인가
+          return alert("이미 시도한 값입니다.");
+        }
+
+        return true;
+      }
+
+      $form.addEventListener("submit", (evnet) => {
+        event.preventDefault(); // 기본 동작 막기
+        const value = $input.value;
+        $input.value = "";
+        console.log(value);
+        const valid = checkInput(value);
+        console.log(!!valid);
+      });
     </script>
   </body>
 </html>
