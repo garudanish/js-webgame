@@ -18,10 +18,11 @@
       const $form = document.querySelector("#form");
       const $logs = document.querySelector("#logs");
 
-      const numbers = [];
-      for (let n = 0; n < 9; n++) {
-        numbers.push(n + 1);
-      }
+      const numbers = Array(9)
+        .fill()
+        .map((el, idx) => {
+          return idx + 1;
+        });
 
       const answer = [];
       for (let n = 0; n <= 3; n++) {
@@ -80,16 +81,16 @@
         let strike = 0;
         let ball = 0;
 
-        for (let i = 0; i < answer.length; i++) {
-          const index = value.indexOf(answer[i]);
+        answer.forEach((number, aIndex) => {
+          const index = value.indexOf(String(number));
           if (index > -1) {
-            if (index === i) {
+            if (index === aIndex) {
               strike++;
             } else {
               ball++;
             }
           }
-        }
+        });
 
         if (strike === 0 && ball === 0) {
           out++;
