@@ -43,6 +43,10 @@
       //   const value = spliceArray[0];
       //   shuffle.push(value);
       // }
+
+      const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b);
+      const bonus = shuffle[6];
+      console.log(winBalls, bonus);
     </script>
   </body>
 </html>
