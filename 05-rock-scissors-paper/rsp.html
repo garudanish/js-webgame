@@ -17,7 +17,7 @@
     <div>
       <button type="button" id="scissors" class="btn">가위</button>
       <button type="button" id="rock" class="btn">바위</button>
-      <button type="button" id="papaer" class="btn">보</button>
+      <button type="button" id="paper" class="btn">보</button>
     </div>
     <div id="score">0</div>
 
@@ -50,11 +50,26 @@
 
         $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
         $computer.style.backgroundSize = "auto 200px";
-
-        setTimeout(changeComputerHand, 50);
       };
 
-      setTimeout(changeComputerHand, 50);
+      let intervalId = setInterval(changeComputerHand, 50);
+
+      let clickable = true;
+      const clickButton = () => {
+        if (clickable) {
+          clearInterval(intervalId);
+          cliackable = false;
+
+          setTimeout(() => {
+            clickable = true;
+            intervalId = setInterval(changeComputerHand, 50);
+          }, 1000);
+        }
+      };
+
+      $rock.addEventListener("click", clickButton);
+      $scissors.addEventListener("click", clickButton);
+      $paper.addEventListener("click", clickButton);
     </script>
   </body>
 </html>
