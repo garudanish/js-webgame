@@ -36,6 +36,25 @@
         rock: "-220px",
         paper: "-440px",
       };
+
+      let computerChoice = "scissors";
+
+      const changeComputerHand = () => {
+        if (computerChoice === "rock") {
+          computerChoice = "scissors";
+        } else if (computerChoice === "scissors") {
+          computerChoice = "paper";
+        } else {
+          computerChoice = "rock";
+        }
+
+        $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+        $computer.style.backgroundSize = "auto 200px";
+
+        setTimeout(changeComputerHand, 50);
+      };
+
+      setTimeout(changeComputerHand, 50);
     </script>
   </body>
 </html>
