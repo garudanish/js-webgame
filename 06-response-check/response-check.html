@@ -34,6 +34,9 @@
       const $screen = document.querySelector("#screen");
       const $result = document.querySelector("#result");
 
+      let startTime;
+      let endTime;
+
       $screen.addEventListener("click", (event) => {
         if (event.target.classList.contains("waiting")) {
           // 파랑
@@ -41,6 +44,7 @@
           $screen.textContent = "초록색이 되면 클릭하세요";
 
           setTimeout(function () {
+            startTime = new Date();
             $screen.classList.replace("ready", "now");
             $screen.textContent = "클릭하세요!";
           }, Math.floor(Math.random() * 1000) + 2000);
@@ -50,6 +54,10 @@
           $result.innerHTML += `<br>성급했습니다. 다시 시도하세요.`;
         } else if (event.target.classList.contains("now")) {
           // 초록
+          endTime = new Date();
+          $result.textContent = `${endTime - startTime}ms`;
+          $screen.classList.replace("now", "waiting");
+          $screen.textContent = "클릭해서 시작하세요";
         }
       });
     </script>
