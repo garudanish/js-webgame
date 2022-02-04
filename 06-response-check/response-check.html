@@ -37,6 +37,7 @@
       let startTime;
       let endTime;
       const records = [];
+      let timeoutId;
 
       $screen.addEventListener("click", (event) => {
         if (event.target.classList.contains("waiting")) {
@@ -44,15 +45,16 @@
           $screen.classList.replace("waiting", "ready");
           $screen.textContent = "초록색이 되면 클릭하세요";
 
-          setTimeout(function () {
+          timeoutId = setTimeout(function () {
             startTime = new Date();
             $screen.classList.replace("ready", "now");
             $screen.textContent = "클릭하세요!";
           }, Math.floor(Math.random() * 1000) + 2000);
         } else if (event.target.classList.contains("ready")) {
           // 빨강
+          clearTimeout(timeoutId);
           $screen.classList.replace("ready", "waiting");
-          $result.innerHTML += `<br>성급했습니다. 다시 시도하세요.`;
+          $screen.textContent = `너무 성급하시군요!`;
         } else if (event.target.classList.contains("now")) {
           // 초록
           endTime = new Date();
