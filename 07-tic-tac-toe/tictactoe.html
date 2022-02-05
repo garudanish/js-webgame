@@ -24,6 +24,18 @@
       const $table = document.createElement("table");
       const $result = document.createElement("div");
       const rows = [];
+      let turn = "O";
+
+      const callback = (event) => {
+        if (event.target.textContent !== "") {
+          console.log("빈 칸이 아닙니다.");
+          return;
+        }
+
+        console.log("빈칸입니다.");
+        event.target.textContent = turn;
+        turn = turn === "X" ? "O" : "X";
+      };
 
       for (let i = 0; i < 3; i++) {
         const $tr = document.createElement("tr");
@@ -39,10 +51,10 @@
         $table.appendChild($tr);
       }
 
+      $table.addEventListener("click", callback);
+
       body.appendChild($table);
       body.appendChild($result);
-
-      let turn = "O";
     </script>
   </body>
 </html>
