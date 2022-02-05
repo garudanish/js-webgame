@@ -67,16 +67,8 @@
         return hasWinner;
       };
 
-      const callback = (event) => {
-        if (event.target.textContent !== "") {
-          console.log("빈 칸이 아닙니다.");
-          return;
-        }
-
-        console.log("빈칸입니다.");
-        event.target.textContent = turn;
-
-        const hasWinner = checkWinner(event.target);
+      const checkWinnerAndDraw = (target) => {
+        const hasWinner = checkWinner(target);
         if (hasWinner) {
           $result.textContent = `${turn}님이 승리!`;
           $table.removeEventListener("click", callback);
@@ -91,6 +83,36 @@
         }
 
         turn = turn === "X" ? "O" : "X";
+      };
+
+      let clickable = true;
+
+      const callback = (event) => {
+        if (!clickable) {
+          return;
+        }
+
+        if (event.target.textContent !== "") {
+          console.log("빈 칸이 아닙니다.");
+          return;
+        }
+
+        console.log("빈칸입니다.");
+        event.target.textContent = turn;
+        checkWinnerAndDraw(event.target);
+
+        if (turn === "X") {
+          const emptyCells = rows.flat().filter((v) => !v.textContent);
+          const randomCell =
+            emptyCells[Math.floor(Math.random() * emptyCells.length)];
+
+          clickable = false;
+          setTimeout(() => {
+            randomCell.textContent = "X";
+            checkWinnerAndDraw(randomCell);
+            clickable = true;
+          }, 1000);
+        }
       };
 
       for (let i = 0; i < 3; i++) {
