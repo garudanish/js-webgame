@@ -128,7 +128,7 @@
         }
       }
 
-      function countMine() {
+      function countMine(rowIndex, cellIndex) {
         const mines = [CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE];
         let i = 0;
         mines.includes(data[rowIndex - 1]?.[cellIndex - 1]) && i++;
@@ -147,7 +147,7 @@
         const rowIndex = target.parentNode.rowIndex;
         const cellIndex = target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
-        if (cell === CODE.NORMAL) {
+        if (cellData === CODE.NORMAL) {
           // 닫힌 칸을 클릭하면
           const count = countMine(rowIndex, cellIndex);
           target.textContent = count || "";
@@ -155,6 +155,10 @@
           data[rowIndex][cellIndex] = count;
         } else if (cellData === CODE.MINE) {
           // 지뢰칸 클릭하면
+          target.textContent = "펑";
+          target.className = "opened";
+          $tbody.removeEventListener("contextmenu", onRightClick);
+          $tbody.removeEventListener("click", onLeftClick);
         }
       }
 
