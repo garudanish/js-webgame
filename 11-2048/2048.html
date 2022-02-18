@@ -129,13 +129,13 @@
       startGame();
 
       // Dummy Data
-      data = [
-        [0, 2, 4, 2],
-        [0, 0, 8, 0],
-        [2, 2, 2, 2],
-        [0, 16, 0, 4],
-      ];
-      draw();
+      // data = [
+      //   [32, 2, 4, 2],
+      //   [64, 4, 8, 4],
+      //   [2, 1024, 1024, 32],
+      //   [32, 16, 64, 4],
+      // ];
+      // draw();
 
       function moveCells(direction) {
         switch (direction) {
@@ -148,6 +148,9 @@
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === cellData) {
                     // 이전 값과 지금 값이 같으면
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[i].push(cellData);
@@ -172,6 +175,9 @@
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === rowData[3 - j]) {
                     // 이전 값과 지금 값이 같으면
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[i].push(rowData[3 - j]);
@@ -196,6 +202,9 @@
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === cellData) {
                     // 이전 값과 지금 값이 같으면
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[j].push(cellData);
@@ -220,6 +229,9 @@
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === data[3 - i][j]) {
                     // 이전 값과 지금 값이 같으면
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[j].push(data[3 - i][j]);
@@ -236,8 +248,19 @@
             break;
           }
         }
-        put2ToRandomCell();
-        draw();
+        if (data.flat().includes(2048)) {
+          // 승리
+          draw();
+          setTimeout(() => {
+            alert("축하합니다. 2048을 만들었습니다!");
+          }, 0);
+        } else if (!data.flat().includes(0)) {
+          // 빈칸이 없으면 패배
+          alert("패배했습니다.");
+        } else {
+          put2ToRandomCell();
+          draw();
+        }
       }
 
       window.addEventListener("keyup", (event) => {
